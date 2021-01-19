@@ -1,12 +1,12 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`ECS-Solar-System Extension should match snapshot 1`] = `
+exports[`ECS Feature Extension should match snapshot 1`] = `
 Object {
   "Description": "Cosmos SolarSystem Extension: App resources dependant on each App Env, like Services and Databases.",
 }
 `;
 
-exports[`ECS-Solar-System should match snapshot 1`] = `
+exports[`ECS Feature should match snapshot 1`] = `
 Object {
   "Description": "Cosmos SolarSystem: Resources dependant on each App Env, like Vpc and MainZone.",
   "Outputs": Object {
@@ -136,16 +136,16 @@ Object {
     },
   },
   "Parameters": Object {
-    "AssetParameters7c3c8ddbdaf82e02c31903672aed568cae11afcc067f1f65c077cac74bd0e1d0ArtifactHash": Object {
-      "Description": "Artifact hash for asset \\"7c3c8ddbdaf82e02c31903672aed568cae11afcc067f1f65c077cac74bd0e1d0\\"",
+    "AssetParameters95ba2ed22f4fbd1c84cafbf5eb719bf15e75b2363da42976da1d54ea3bc5cf43ArtifactHash": Object {
+      "Description": "Artifact hash for asset \\"95ba2ed22f4fbd1c84cafbf5eb719bf15e75b2363da42976da1d54ea3bc5cf43\\"",
       "Type": "String",
     },
-    "AssetParameters7c3c8ddbdaf82e02c31903672aed568cae11afcc067f1f65c077cac74bd0e1d0S3Bucket": Object {
-      "Description": "S3 bucket for asset \\"7c3c8ddbdaf82e02c31903672aed568cae11afcc067f1f65c077cac74bd0e1d0\\"",
+    "AssetParameters95ba2ed22f4fbd1c84cafbf5eb719bf15e75b2363da42976da1d54ea3bc5cf43S3Bucket": Object {
+      "Description": "S3 bucket for asset \\"95ba2ed22f4fbd1c84cafbf5eb719bf15e75b2363da42976da1d54ea3bc5cf43\\"",
       "Type": "String",
     },
-    "AssetParameters7c3c8ddbdaf82e02c31903672aed568cae11afcc067f1f65c077cac74bd0e1d0S3VersionKey": Object {
-      "Description": "S3 key for asset version \\"7c3c8ddbdaf82e02c31903672aed568cae11afcc067f1f65c077cac74bd0e1d0\\"",
+    "AssetParameters95ba2ed22f4fbd1c84cafbf5eb719bf15e75b2363da42976da1d54ea3bc5cf43S3VersionKey": Object {
+      "Description": "S3 key for asset version \\"95ba2ed22f4fbd1c84cafbf5eb719bf15e75b2363da42976da1d54ea3bc5cf43\\"",
       "Type": "String",
     },
   },
@@ -341,7 +341,7 @@ Object {
               },
               "/",
               Object {
-                "Ref": "AssetParameters7c3c8ddbdaf82e02c31903672aed568cae11afcc067f1f65c077cac74bd0e1d0S3Bucket",
+                "Ref": "AssetParameters95ba2ed22f4fbd1c84cafbf5eb719bf15e75b2363da42976da1d54ea3bc5cf43S3Bucket",
               },
               "/",
               Object {
@@ -351,7 +351,7 @@ Object {
                     "Fn::Split": Array [
                       "||",
                       Object {
-                        "Ref": "AssetParameters7c3c8ddbdaf82e02c31903672aed568cae11afcc067f1f65c077cac74bd0e1d0S3VersionKey",
+                        "Ref": "AssetParameters95ba2ed22f4fbd1c84cafbf5eb719bf15e75b2363da42976da1d54ea3bc5cf43S3VersionKey",
                       },
                     ],
                   },
@@ -364,7 +364,7 @@ Object {
                     "Fn::Split": Array [
                       "||",
                       Object {
-                        "Ref": "AssetParameters7c3c8ddbdaf82e02c31903672aed568cae11afcc067f1f65c077cac74bd0e1d0S3VersionKey",
+                        "Ref": "AssetParameters95ba2ed22f4fbd1c84cafbf5eb719bf15e75b2363da42976da1d54ea3bc5cf43S3VersionKey",
                       },
                     ],
                   },
@@ -454,7 +454,7 @@ Object {
 }
 `;
 
-exports[`ECS-Solar-System should match snapshot 2`] = `
+exports[`ECS Feature should match snapshot 2`] = `
 Object {
   "Description": "Adds Ecs Features to the SolarSystem",
   "Outputs": Object {
@@ -610,6 +610,12 @@ Object {
   "Resources": Object {
     "Alb": Object {
       "Properties": Object {
+        "LoadBalancerAttributes": Array [
+          Object {
+            "Key": "deletion_protection.enabled",
+            "Value": "false",
+          },
+        ],
         "Name": "CoreGalSysAlb",
         "Scheme": "internal",
         "SecurityGroups": Array [
@@ -1434,6 +1440,7 @@ def pick(dct, *keys):
               "",
               Array [
                 "#!/bin/bash
+exec > >(tee /var/log/user-data.log|logger -t user-data -s 2>/dev/console) 2>&1
 echo ECS_CLUSTER=",
                 Object {
                   "Ref": "Cluster",
@@ -1548,27 +1555,7 @@ echo ECS_AWSVPC_BLOCK_IMDS=true >> /etc/ecs/ecs.config",
     "ClusterDefaultAutoScalingGroupLifecycleHookDrainHookTopic": Object {
       "Properties": Object {
         "KmsMasterKeyId": Object {
-          "Fn::Select": Array [
-            1,
-            Object {
-              "Fn::Split": Array [
-                "/",
-                Object {
-                  "Fn::Select": Array [
-                    5,
-                    Object {
-                      "Fn::Split": Array [
-                        ":",
-                        Object {
-                          "Fn::ImportValue": "CoreCosGalGalaxy:GalExportsOutputFnGetAttSharedKeyArn962CB6B9",
-                        },
-                      ],
-                    },
-                  ],
-                },
-              ],
-            },
-          ],
+          "Fn::ImportValue": "CoreCosGalGalaxy:GalExportsOutputFnGetAttSharedKeyArn962CB6B9",
         },
         "Tags": Array [
           Object {
@@ -1599,7 +1586,7 @@ echo ECS_AWSVPC_BLOCK_IMDS=true >> /etc/ecs/ecs.config",
 }
 `;
 
-exports[`ECS-Solar-System should match snapshot 3`] = `
+exports[`ECS Feature should match snapshot 3`] = `
 Object {
   "Description": "Cosmos SolarSystem: Resources dependant on each App Env, like Vpc and MainZone.",
   "Outputs": Object {
@@ -1729,16 +1716,16 @@ Object {
     },
   },
   "Parameters": Object {
-    "AssetParameters1915882d767a864363c7b79e6c93b2206b75ed64d027598a1556d58970c2b3c3ArtifactHash": Object {
-      "Description": "Artifact hash for asset \\"1915882d767a864363c7b79e6c93b2206b75ed64d027598a1556d58970c2b3c3\\"",
+    "AssetParameters8e7f760c3e520d6011ba39e3ffdf91291319d8c9173bdaa966b0f26af29fc437ArtifactHash": Object {
+      "Description": "Artifact hash for asset \\"8e7f760c3e520d6011ba39e3ffdf91291319d8c9173bdaa966b0f26af29fc437\\"",
       "Type": "String",
     },
-    "AssetParameters1915882d767a864363c7b79e6c93b2206b75ed64d027598a1556d58970c2b3c3S3Bucket": Object {
-      "Description": "S3 bucket for asset \\"1915882d767a864363c7b79e6c93b2206b75ed64d027598a1556d58970c2b3c3\\"",
+    "AssetParameters8e7f760c3e520d6011ba39e3ffdf91291319d8c9173bdaa966b0f26af29fc437S3Bucket": Object {
+      "Description": "S3 bucket for asset \\"8e7f760c3e520d6011ba39e3ffdf91291319d8c9173bdaa966b0f26af29fc437\\"",
       "Type": "String",
     },
-    "AssetParameters1915882d767a864363c7b79e6c93b2206b75ed64d027598a1556d58970c2b3c3S3VersionKey": Object {
-      "Description": "S3 key for asset version \\"1915882d767a864363c7b79e6c93b2206b75ed64d027598a1556d58970c2b3c3\\"",
+    "AssetParameters8e7f760c3e520d6011ba39e3ffdf91291319d8c9173bdaa966b0f26af29fc437S3VersionKey": Object {
+      "Description": "S3 key for asset version \\"8e7f760c3e520d6011ba39e3ffdf91291319d8c9173bdaa966b0f26af29fc437\\"",
       "Type": "String",
     },
   },
@@ -1778,7 +1765,7 @@ Object {
               },
               "/",
               Object {
-                "Ref": "AssetParameters1915882d767a864363c7b79e6c93b2206b75ed64d027598a1556d58970c2b3c3S3Bucket",
+                "Ref": "AssetParameters8e7f760c3e520d6011ba39e3ffdf91291319d8c9173bdaa966b0f26af29fc437S3Bucket",
               },
               "/",
               Object {
@@ -1788,7 +1775,7 @@ Object {
                     "Fn::Split": Array [
                       "||",
                       Object {
-                        "Ref": "AssetParameters1915882d767a864363c7b79e6c93b2206b75ed64d027598a1556d58970c2b3c3S3VersionKey",
+                        "Ref": "AssetParameters8e7f760c3e520d6011ba39e3ffdf91291319d8c9173bdaa966b0f26af29fc437S3VersionKey",
                       },
                     ],
                   },
@@ -1801,7 +1788,7 @@ Object {
                     "Fn::Split": Array [
                       "||",
                       Object {
-                        "Ref": "AssetParameters1915882d767a864363c7b79e6c93b2206b75ed64d027598a1556d58970c2b3c3S3VersionKey",
+                        "Ref": "AssetParameters8e7f760c3e520d6011ba39e3ffdf91291319d8c9173bdaa966b0f26af29fc437S3VersionKey",
                       },
                     ],
                   },
@@ -1891,7 +1878,7 @@ Object {
 }
 `;
 
-exports[`ECS-Solar-System should match snapshot 4`] = `
+exports[`ECS Feature should match snapshot 4`] = `
 Object {
   "Description": "Adds Ecs Features to the SolarSystem",
   "Outputs": Object {
@@ -2006,6 +1993,12 @@ Object {
   "Resources": Object {
     "Alb": Object {
       "Properties": Object {
+        "LoadBalancerAttributes": Array [
+          Object {
+            "Key": "deletion_protection.enabled",
+            "Value": "false",
+          },
+        ],
         "Name": "CoreGalSys1Alb",
         "Scheme": "internal",
         "SecurityGroups": Array [
@@ -2762,6 +2755,12 @@ def pick(dct, *keys):
               "",
               Array [
                 "#!/bin/bash
+function exitTrap(){
+exitCode=$?
+service docker restart
+}
+trap exitTrap EXIT
+exec > >(tee /var/log/user-data.log|logger -t user-data -s 2>/dev/console) 2>&1
 echo ECS_CLUSTER=",
                 Object {
                   "Ref": "Cluster",
@@ -2769,7 +2768,19 @@ echo ECS_CLUSTER=",
                 " >> /etc/ecs/ecs.config
 sudo iptables --insert FORWARD 1 --in-interface docker+ --destination 169.254.169.254/32 --jump DROP
 sudo service iptables save
-echo ECS_AWSVPC_BLOCK_IMDS=true >> /etc/ecs/ecs.config",
+echo ECS_AWSVPC_BLOCK_IMDS=true >> /etc/ecs/ecs.config
+cat <<EOF >> /etc/sysconfig/docker
+TEST=test
+EOF
+cat <<EOF >> /etc/sysconfig/docker
+TEST2=test2
+EOF
+cat <<EOF >> /etc/ecs/ecs.config
+TEST=test
+EOF
+cat <<EOF >> /etc/ecs/ecs.config
+TEST2=test2
+EOF",
               ],
             ],
           },
@@ -2876,27 +2887,7 @@ echo ECS_AWSVPC_BLOCK_IMDS=true >> /etc/ecs/ecs.config",
     "ClusterDefaultAutoScalingGroupLifecycleHookDrainHookTopic": Object {
       "Properties": Object {
         "KmsMasterKeyId": Object {
-          "Fn::Select": Array [
-            1,
-            Object {
-              "Fn::Split": Array [
-                "/",
-                Object {
-                  "Fn::Select": Array [
-                    5,
-                    Object {
-                      "Fn::Split": Array [
-                        ":",
-                        Object {
-                          "Fn::ImportValue": "CoreCosGalGalaxy:GalExportsOutputFnGetAttSharedKeyArn962CB6B9",
-                        },
-                      ],
-                    },
-                  ],
-                },
-              ],
-            },
-          ],
+          "Fn::ImportValue": "CoreCosGalGalaxy:GalExportsOutputFnGetAttSharedKeyArn962CB6B9",
         },
         "Tags": Array [
           Object {

@@ -1,4 +1,51 @@
 
+## v0.7.2 (2020-12-16)
+
+#### 🚀 Enhancement:
+* `@cdk-cosmos/core`, `@cosmos-building-blocks/pipeline`
+  * [#227](https://github.com/cdk-cosmos/cosmos/pull/227) Add Github Enterprise Support ([@timpur](https://github.com/timpur))
+* `@cdk-cosmos/core`
+  * [#226](https://github.com/cdk-cosmos/cosmos/pull/226) Add Domain Feature + Link Feature + Rework Remote Exports ([@timpur](https://github.com/timpur))
+
+#### 🐛 Bug Fix
+* `@cdk-cosmos/cdk-credentials-plugin`, `@cdk-cosmos/core`, `@cosmos-building-blocks/app-ec2`, `@cosmos-building-blocks/common`, `@cosmos-building-blocks/network`, `@cosmos-building-blocks/pipeline`, `@cosmos-building-blocks/service`
+  * [#223](https://github.com/cdk-cosmos/cosmos/pull/223) Add Stack Dependencies and Fix cdk pipeline to accommodate change + CDK version bump ([@timpur](https://github.com/timpur))
+* `@cdk-cosmos/core`, `@cosmos-building-blocks/service`
+  * [#220](https://github.com/cdk-cosmos/cosmos/pull/220) Fix Redis prop issue + Add is functions to extension classes ([@timpur](https://github.com/timpur))
+
+#### Committers: 1
+- Tim P ([@timpur](https://github.com/timpur))
+
+
+## v0.7.1 (2020-11-09)
+
+#### 🚀 Enhancement:
+* `@cdk-cosmos/core`
+  * [#216](https://github.com/cdk-cosmos/cosmos/pull/216) Add Default user data (logging) + configure ecs agent ([@timpur](https://github.com/timpur))
+
+#### 🐛 Bug Fix
+* `@cdk-cosmos/core`
+  * [#218](https://github.com/cdk-cosmos/cosmos/pull/218) Cross-Account export not handling pagination ([@timpur](https://github.com/timpur))
+  * [#213](https://github.com/cdk-cosmos/cosmos/pull/213) Fix @aws-cdk/aws-kms peer dependency ([@jpeyper](https://github.com/jpeyper))
+
+#### Committers: 2
+- Jonathan Peyper ([@jpeyper](https://github.com/jpeyper))
+- Tim P ([@timpur](https://github.com/timpur))
+
+
+## v0.7.0 (2020-10-15)
+
+#### 🚀 Enhancement:
+* `@cdk-cosmos/core`
+  * [#209](https://github.com/cdk-cosmos/cosmos/pull/209) ECS ROLLING_UPDATE ([@timpur](https://github.com/timpur))
+* `@cdk-cosmos/core`, `@cosmos-building-blocks/common`
+  * [#208](https://github.com/cdk-cosmos/cosmos/pull/208) New CDKBootstrap + CDKToolkit  ([@timpur](https://github.com/timpur))
+
+#### Committers: 2
+- Tim P ([@timpur](https://github.com/timpur))
+- Tom Guerney ([@thomasguerneyiag](https://github.com/thomasguerneyiag))
+
+
 ## v0.6.4 (2020-09-24)
 
 #### 🚀 Enhancement:

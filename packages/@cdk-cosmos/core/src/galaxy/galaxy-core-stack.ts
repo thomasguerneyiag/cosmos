@@ -4,7 +4,6 @@ import { Role, ArnPrincipal, ManagedPolicy } from '@aws-cdk/aws-iam';
 import { IKey, Key } from '@aws-cdk/aws-kms';
 import { BaseStack, BaseStackProps } from '../components/base';
 import { ICosmosCore } from '../cosmos/cosmos-core-stack';
-import { PATTERN } from '../helpers/constants';
 import { isCrossAccount } from '../helpers/utils';
 
 const GALAXY_CORE_SYMBOL = Symbol.for('@cdk-cosmos/core.CosmosCore');
@@ -42,15 +41,16 @@ export class GalaxyCoreStack extends BaseStack implements IGalaxyCore {
     });
 
     if (isCrossAccount(this, this.cosmos)) {
-      const CdkCrossAccountRoleName = this.cosmos.nodeId('CdkCrossAccountRole', '', PATTERN.SINGLETON_COSMOS);
+      const CdkCrossAccountRoleName = this.cosmos.singletonId('CdkCrossAccountRole');
       this.cdkCrossAccountRole = new Role(this, 'CdkCrossAccountRole', {
         roleName: CdkCrossAccountRoleName,
         assumedBy: new ArnPrincipal(this.cosmos.cdkMasterRoleStaticArn),
       });
       this.cdkCrossAccountRole.addManagedPolicy(ManagedPolicy.fromAwsManagedPolicyName('AdministratorAccess'));
-      this.cdkCrossAccountRoleStaticArn = `arn:aws:iam::${Stack.of(this).account}:role/${CdkCrossAccountRoleName}`;
+      this.cdkCrossAccountRoleStaticArn = `arn:aws:iam::${this.account}:role/${CdkCrossAccountRoleName}`;
     }
 
+    this.addDependency(Stack.of(this.cosmos));
     Tags.of(this).add('cosmos:galaxy', this.node.id);
   }
 

@@ -1,6 +1,6 @@
 import '@aws-cdk/assert/jest';
 import { App } from '@aws-cdk/core';
-import { synthesizeStacks } from '../../../../src/test';
+import { synthesizeStacks } from '../../../../../src/test';
 import {
   CosmosCoreStack,
   CosmosExtensionStack,
@@ -8,7 +8,7 @@ import {
   GalaxyExtensionStack,
   SolarSystemCoreStack,
   SolarSystemExtensionStack,
-} from '../src';
+} from '../../src';
 
 const app = new App();
 const cosmos = new CosmosCoreStack(app, 'Cos', { tld: 'cos.com' });
@@ -26,6 +26,10 @@ const solarSystem2 = new SolarSystemCoreStack(galaxy, 'Sys1', {
 solarSystem2.addEcs({
   albListenerCidr: '10.0.0.0/8',
 });
+solarSystem2.ecs?.addDockerConfig({ TEST: 'test' });
+solarSystem2.ecs?.addDockerConfig({ TEST2: 'test2' });
+solarSystem2.ecs?.addEcsAgentConfig({ TEST: 'test' });
+solarSystem2.ecs?.addEcsAgentConfig({ TEST2: 'test2' });
 
 const cosmosExtension = new CosmosExtensionStack(app, 'Test');
 const galaxyExtension = new GalaxyExtensionStack(cosmosExtension, 'Gal');
@@ -39,8 +43,8 @@ const [
   solarSystemExtensionStack,
 ] = synthesizeStacks(solarSystem, solarSystem.ecs, solarSystem2, solarSystem2.ecs, solarSystemExtension);
 
-describe('ECS-Solar-System', () => {
-  test('should be an ecs-solar-system', () => {
+describe('ECS Feature', () => {
+  test('should be an Ecs Feature', () => {
     expect(solarSystem.stackName).toEqual('CoreCosGalSysSolarSystem');
     expect(solarSystem.ecs).toHaveOutput({ exportName: 'CoreGalSysClusterName' });
     expect(solarSystem.ecs).toHaveOutput({ exportName: 'CoreGalSysAlbArn' });
@@ -105,7 +109,7 @@ describe('ECS-Solar-System', () => {
   });
 });
 
-describe('ECS-Solar-System Extension', () => {
+describe('ECS Feature Extension', () => {
   test('should be a solar-system extension', () => {
     expect(solarSystemExtension.stackName).toEqual('AppTestGalSysSolarSystem');
   });
